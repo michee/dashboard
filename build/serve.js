@@ -61,6 +61,10 @@ function getBackendArgs(mode) {
     args.push(`--default-cert-dir=${conf.backend.defaultCertDir}`);
   }
 
+  if (conf.backend.apiLogLevel.length > 0) {
+    args.push(`--api-log-level=${conf.backend.apiLogLevel}`);
+  }
+
   if (mode === conf.build.production) {
     args.push(`--insecure-port=${conf.frontend.serverPort}`);
   }
@@ -135,6 +139,7 @@ function serveDevelopmentMode() {
  * development artifacts.
  */
 gulp.task('serve', ['spawn-backend', 'watch'], serveDevelopmentMode);
+gulp.task('serve:no-backend', ['watch'], serveDevelopmentMode);
 
 /**
  * Serves the application in development mode.
